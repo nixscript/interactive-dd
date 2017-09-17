@@ -37,4 +37,3 @@ idd_umount_dev=\e[19H\e[0J\tОтмонтировать
 idd_process=\e[19H\e[0K\t\e[30;5mВыполнение:
 idd_done=\e[19H\e[0K\tВыполнено:
 idd_alldone=\e[25H\tРабота выполнена!\n\tдля выхода нажмите любую клавишу.\e[0J
-idd_check_root=\t\e[30;43m Не достаточно прав. Запустите от имени root.\n\n\n\e[0m\e[0J
