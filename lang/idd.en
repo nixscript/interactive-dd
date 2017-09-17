@@ -1,0 +1,40 @@
+# English UTF-8 locale
+
+idd_header=\e[37;45;4m\tINTERACTIVE COMMAND SHELL dd (v0.3)\e[0m\e[37;45;1m
+idd_target=\e[37;45;1m    \e[4mIn order to:\e[0m\e[37;45;1m\n\tRussian Community of Open Source Software (ROSPO)
+idd_target1=\e[37;45;1m\tTo develop and improve the quality of Russian OSS.
+idd_thankfulness=\e[37;45;1m    \e[4mThanks for the consultations:\e[0m\e[37;45;1m\n\tMikhail (vk.com/mikhailnov) and Sergey (vk.com/disable_enable)
+idd_author_lic=\e[37;45;1m\n\tya@grigrus.ru vk.com/nixscript\n\t\t License MIT \n\e[0m\e[47m\e[0J
+
+idd_choise_source=\e[30;47m\e[12H\e[0J\t\e[30mSelect source type\n\t\tf) File\td) Disk\e[1A
+idd_choise_f=file
+idd_choise_d=disk
+idd_choise_source1=\e[1D\e[0K\t\t\e[34mf) File\t\e[30md) Disk
+idd_choise_source2=\e[1D\e[0K\t\tf) File\t\e[34md) Disk\e[30m
+idd_read_source_dest=\tSelect the number of $d and press Enter
+idd_type_filename=\tType name of
+idd_type_filename1=:
+idd_file_exists=\tFile exists.
+idd_file_not_found=\t\e[30;43m File not found!!! \e[0m\e[30;47m\n\tCheck path to file before run or from file directory.\n\n\e[0m\e[0J
+idd_source=\e[30;47m\e[12H\tSource is 
+idd_choise_destination=\e[30;47m\e[12H\e[0J\t\e[30mSelect type of destination\n\t\tf) File\td) Disk\e[1A
+idd_choise_destination1=\e[1D\e[0K\t\t\e[34mf) File\t\e[30md) Disk
+idd_choise_destination2=\e[1D\e[0K\t\tf) File\t\e[34md) Disk\e[30m
+idd_file_exists_exit=\t\e[30;43m File $ff is exist!!!\e[0m\e[30;47m\n\tRestart $0 and type other name of file.\n\n\e[0m\e[0J
+idd_destination=\e[30;47m\e[12H\tDestination
+idd_filelist=\tList of files:
+idd_type_from_kbd=\t\t$count) Type from keyboard
+idd_partitions=$count) \e[4m$l\e[0m\e[30;47m\n\t    partitions:
+idd_umount=\e[32mUmounted
+idd_mount=\e[33;40m Mounted to
+idd_source_choised=\tSource
+idd_dest_choised=\tDestination
+idd_bs=\tBlock size
+idd_command=\n\tCommand to run:
+idd_check_cmd=\n\t\e[30;43;5m Check the command!!! \e[0m\e[30;47m\n\t\e[30;43m Don't confirm if you not sure!!! \e[0m\e[30;47m
+idd_ready_to_write=\tAre you ready to write from
+idd_umount_dev=\e[19H\e[0J\tUnmount
+idd_process=\e[19H\e[0K\t\e[30;5mIn process:
+idd_done=\e[19H\e[0K\tAll done:
+idd_alldone=\e[25H\tAll done!\n\tPress any key to exit.\e[0J
+idd_check_root=\t\e[30;43m You have no rights. You must start it as root.\n\n\n\e[0m\e[0J

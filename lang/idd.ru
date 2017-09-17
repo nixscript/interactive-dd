@@ -1,0 +1,40 @@
+# Rissuan UTF-8 locale
+
+idd_header=\e[37;45;4m\tИНТЕРАКТИВНАЯ ОБОЛОЧКА КОМАНДЫ dd (v0.3)\e[0m\e[37;45;1m
+idd_target=\e[37;45;1m    \e[4mВ целях:\e[0m\e[37;45;1m\n\tРоссийского Общества Свободного Программного Обеспечения (РОСПО)
+idd_target1=\e[37;45;1m\tДля развития и улучшения качества российского СПО.
+idd_thankfulness=\e[37;45;1m    \e[4mБлагодарность за консультации:\e[0m\e[37;45;1m\n\tМихаилу (vk.com/mikhailnov) и Сергею (vk.com/disable_enable)
+idd_author_lic=\e[37;45;1m\n\tya@grigrus.ru vk.com/nixscript\n\t\t License MIT \n\e[0m\e[47m\e[0J
+
+idd_choise_source=\e[30;47m\e[12H\e[0J\t\e[30mВыберите источник\n\t\tf) Файл\td) Диск\e[1A
+idd_choise_f=файл
+idd_choise_d=диск
+idd_choise_source1=\e[1D\e[0K\t\t\e[34mf) Файл\t\e[30md) Диск
+idd_choise_source2=\e[1D\e[0K\t\tf) Файл\t\e[34md) Диск\e[30m
+idd_read_source_dest=\tВыберите номер $dа и нажмите Enter
+idd_type_filename=\tВведите имя
+idd_type_filename1=а:
+idd_file_exists=\tФайл найден.
+idd_file_not_found=\t\e[30;43m Файл не найден!!! \e[0m\e[30;47m\n\tПроверьте правильность пути к файлу перед запуском, или запустите из директории с файлом.\n\n\e[0m\e[0J
+idd_source=\e[30;47m\e[12H\tИсточником выбран
+idd_choise_destination=\e[30;47m\e[12H\e[0J\t\e[30mВыберите приёмник\n\t\tf) Файл\td) Диск\e[1A
+idd_choise_destination1=\e[1D\e[0K\t\t\e[34mf) Файл\t\e[30md) Диск
+idd_choise_destination2=\e[1D\e[0K\t\tf) Файл\t\e[34md) Диск\e[30m
+idd_file_exists_exit=\t\e[30;43m Файл существует!!!\e[0m\e[30;47m\n\tПерезапустите и укажите другое имя файла.\n\n\e[0m\e[0J
+idd_destination=\e[30;47m\e[12H\tПриёмником выбран
+idd_filelist=\tСписок файлов:
+idd_type_from_kbd=) Ввести с клавиатуры
+idd_partitions=) \e[4m$l\e[0m\e[30;47m\n\t    разделы:
+idd_umount=\e[32mНе монтирован
+idd_mount=\e[33;40m Смонтирован в 
+idd_source_choised=\tИсточником выбран
+idd_dest_choised=\tПриёмником выбран 
+idd_bs=\tРазмер блока
+idd_command=\n\tКоманда на выполнение:
+idd_check_cmd=\n\t\e[30;43;5m Проверьте правильность команды!!! \e[0m\e[30;47m\n\t\e[30;43m Не соглашайтесь на выполнение, если в чём-то не уверены!!! \e[0m\e[30;47m
+idd_ready_to_write=\tВы готовы к записи c
+idd_umount_dev=\e[19H\e[0J\tОтмонтировать
+idd_process=\e[19H\e[0K\t\e[30;5mВыполнение:
+idd_done=\e[19H\e[0K\tВыполнено:
+idd_alldone=\e[25H\tРабота выполнена!\n\tдля выхода нажмите любую клавишу.\e[0J
+idd_check_root=\t\e[30;43m Не достаточно прав. Запустите от имени root.\n\n\n\e[0m\e[0J
