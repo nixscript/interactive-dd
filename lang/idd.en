@@ -37,4 +37,3 @@ idd_umount_dev=\e[19H\e[0J\tUnmount
 idd_process=\e[19H\e[0K\t\e[30;5mIn process:
 idd_done=\e[19H\e[0K\tAll done:
 idd_alldone=\e[25H\tAll done!\n\tPress any key to exit.\e[0J
-idd_check_root=\t\e[30;43m You have no rights. You must start it as root.\n\n\n\e[0m\e[0J
