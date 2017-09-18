@@ -3,7 +3,7 @@ Bash script with interactive terminal shell for 'dd'
 
 Get release zip, extract and ...
 ```
-# Copy idd.sh as root
+# Run idd.sh as root
 sudo ./idd.sh
 
 # After that:
