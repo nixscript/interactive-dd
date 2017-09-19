@@ -3,8 +3,14 @@ Bash script with interactive terminal shell for 'dd'
 
 Get release zip, extract and ...
 ```
-# Run idd.sh as root
-sudo ./idd.sh
+# Go to extracted directory
+cd interactive-dd
+
+# Copy idd.sh to /usr/bin as root
+sudo cp idd.sh /usr/bin/idd
+
+# Copy translations to /usr/share/idd/
+sudo cp translations/*.trans /usr/share/idd/
 
 # After that:
 # Just run idd in directory with image-file
