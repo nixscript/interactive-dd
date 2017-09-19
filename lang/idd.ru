@@ -1,9 +1,9 @@
 # Rissuan UTF-8 locale
 
-idd_header=\e[37;45;4m\tИНТЕРАКТИВНАЯ ОБОЛОЧКА КОМАНДЫ dd (v0.4)\e[0m\e[37;45;1m
+idd_header=\e[37;45;4m\tИНТЕРАКТИВНАЯ ОБОЛОЧКА КОМАНДЫ
 idd_target=\e[37;45;1m    \e[4mВ целях:\e[0m\e[37;45;1m\n\tРоссийского Общества Свободного Программного Обеспечения (РОСПО)
 idd_target1=\e[37;45;1m\tДля развития и улучшения качества российского СПО.
-idd_thankfulness=\e[37;45;1m    \e[4mБлагодарность за консультации:\e[0m\e[37;45;1m\n\tМихаилу (vk.com/mikhailnov) и Сергею (vk.com/disable_enable)
+idd_thankfulness=\e[37;45;1m    \e[4mБлагодарность за консультации и помощь:\e[0m\e[37;45;1m\n\tМихаилу (vk.com/mikhailnov), Сергею (vk.com/disable_enable) и Данилу (vk.com/danil.antoshkin)
 idd_author_lic=\e[37;45;1m\n\tya@grigrus.ru vk.com/nixscript\n\t\t License MIT \n\e[0m\e[47m\e[0J
 
 idd_choise_source=\e[30;47m\e[12H\e[0J\t\e[30mВыберите источник\n\t\tf) Файл\td) Диск\e[1A
