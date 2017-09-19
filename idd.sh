@@ -10,30 +10,13 @@
 # Лицензия MIT, читайте файл LICENSE.md
 
 # Check root
-if [[ `whoami` != "root" ]]; then echo -e "Run as root! You have no rights."; exit 2; fi
-
-# Check localisation file
-if [[ ! -e "/usr/share/idd/idd.${LANG:0:2}" ]]; then
-	if [[ -e "./lang/idd.${LANG:0:2}" ]]; then
-		mkdir "/usr/share/idd"
-		cp ./lang/* /usr/share/idd/
-		cp $0 /usr/bin/idd
-		echo "idd.sh installed successful!"
-		echo "Run just 'idd' without '.sh'."
-		exit 0
-	else
-		echo "Localisation files not found. Please download release archive from"
-		echo "https://github.com/grigruss/interactive-dd/releases"
-		echo "Extract and run 'idd.sh' from extracted directory."
-		exit 2
-	fi
-fi
+if [[ `whoami` != "root" ]]; then echo -e "\n\t\e[33;5mRun as root! You have no rights.\e[0\n"; exit 2; fi
 
 # Load locales
 IFS=$'\n'
 iddlocale=
 for line in $(cat "/usr/share/idd/idd.${LANG:0:2}"); do
-	idx1=`expr index "$line" =`
+	idx1=`expr index "$line"`
 	idx=`expr $idx1 - 1`
 	nm="${line:0:$idx}"
 	if [[ ${nm:0:3} != "idd" ]]; then continue; fi
@@ -53,7 +36,7 @@ list=	# For lists of files/disks | Для списков файлов/диско
 # Рисует шапку/заголовок
 field(){
 	echo -e "\e[37;45m\e[2J\e[1;0H"
-	echo -e "$idd_header"
+	echo -e "$idd_header dd (v0.4.1)\e[0m\e[37;45;1m"
 	echo -e "$idd_target"
 	echo -e "$idd_target1"
 	echo -e "$idd_thankfulness"
