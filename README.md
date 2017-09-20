@@ -1,7 +1,11 @@
 # interactive-dd
+
+[![Build Status](https://travis-ci.org/interactive-dd/interactive-dd.svg?branch=master)](https://travis-ci.org/interactive-dd/interactive-dd)
+
 Bash script with interactive terminal shell for 'dd'
 
 Get release zip, extract and ...
+
 ```
 # Go to extracted directory
 cd interactive-dd
