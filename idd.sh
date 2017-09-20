@@ -114,14 +114,12 @@ chs2(){
 showfiles(){
 	echo -e "$idd_filelist"
 	count=1
-	if [ -e *.i* ]; then
-		flist=(`ls *.i*`)
-		for file in ${flist[*]}; do
-			echo -e "\t\t$count) $file"
-			list[$count]=$file
-			count=`expr $count + 1`
-		done
-	fi
+	flist=(`ls *.i* 2>/dev/null`)
+	for file in ${flist[*]}; do
+		echo -e "\t\t$count) $file"
+		list[$count]=$file
+		count=`expr $count + 1`
+	done
 	echo -e "\t\t$count$idd_type_from_kbd"
 }
 
