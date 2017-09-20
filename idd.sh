@@ -202,13 +202,6 @@ getBlockSize() {
         blockSize=
         return
     fi
-    blockSizeDev=
-    if [[ ${odev:0:4} == "/dev" ]]; then
-    	blockSizeDev="${odev:5}";
-    else
-        blockSizeDev="no"
-        return
-    fi
     logicalBlockSize=$(cat "/sys/block${odev:4}/queue/logical_block_size")
     range=$(cat "/sys/block${odev:4}/range")
     blockSize=$((logicalBlockSize * "$range"))
