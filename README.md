@@ -1,6 +1,8 @@
 # interactive-dd
 
 [![Build Status](https://travis-ci.org/interactive-dd/interactive-dd.svg?branch=master)](https://travis-ci.org/interactive-dd/interactive-dd)
+[![GitHub License](https://img.shields.io/github/license/interactive-dd/interactive-dd.svg)](https://github.com/interactive-dd/interactive-dd/blob/master/LICENSE.md)
+[![GitHub Release](https://img.shields.io/github/release/interactive-dd/interactive-dd.svg)](https://github.com/interactive-dd/interactive-dd/releases)
 
 Bash script with interactive terminal shell for 'dd'
 
