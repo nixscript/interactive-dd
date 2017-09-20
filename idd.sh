@@ -11,11 +11,11 @@
 
 # Global vars
 # Глобальные переменные
-idev= # Источник (Input device)
-odev= #	Приёмник (Output device)
-bs=   #	Размер блока (BlockSize)
-d=    # Под всякую чушь (Temporary var)
-list= # Для списков файлов/дисков (For lists of files/disks)
+idev=      # Источник (Input device)
+odev=      #	Приёмник (Output device)
+blockSize= #	Размер блока (BlockSize)
+d=         # Под всякую чушь (Temporary var)
+list=      # Для списков файлов/дисков (For lists of files/disks)
 
 idd_header=
 idd_target=
@@ -44,7 +44,7 @@ idd_umount=
 idd_mount=
 idd_source_choised=
 idd_dest_choised=
-idd_bs=
+idd_blocksize=
 idd_command=
 idd_check_cmd=
 idd_ready_to_write=
@@ -71,7 +71,7 @@ done <"/usr/share/idd/${LANG:0:2}.trans"
 
 # Show header
 # Рисует шапку/заголовок
-drawField() {
+showHeader() {
     echo -e "\\e[37;45m\\e[2J\\e[1;0H"
     echo -e "$idd_header dd (v0.4.2)\\e[0m\\e[37;45;1m"
     echo -e "$idd_target"
@@ -83,7 +83,7 @@ drawField() {
 # Choise 1, device from
 # Выбор устройства, с которого читать
 choiseDeviceFrom() {
-    drawField
+    showHeader
     echo -e "$idd_choise_source"
     read -r -n 1 c
     case "$c" in
@@ -116,16 +116,16 @@ choiseDeviceFrom() {
             exit 2
         fi
     fi
-    drawField
+    showHeader
     echo -e "$idd_source $d ${list[$file]}\\e[30;47m\\e[13H\\e[0J"
     idev="${list[$file]}"
     echo -e "\\e[30B\\e[0m\\n"
 }
 
-# Choise 2, device to
+# Choise device to
 # Выбор устройства на которое пишем
 choiseDeviceTo() {
-    drawField
+    showHeader
     echo -e "$idd_choise_destination"
     read -r -n 1 c
     case "$c" in
@@ -153,7 +153,7 @@ choiseDeviceTo() {
         file=0
         list=("$ff")
     fi
-    drawField
+    showHeader
     echo -e "$idd_destination $d ${list[$file]}\\e[30;47m\\e[13H\\e[0J"
     odev="${list[$file]}"
     echo -e "\\e[30B\\e[0m\\n"
@@ -164,8 +164,8 @@ choiseDeviceTo() {
 showFiles() {
     echo -e "$idd_filelist"
     count=1
-    flist=("$(ls ./*.i* 2>/dev/null)")
-    for file in ${flist[*]}; do
+    fileList=("$(ls ./*.i* 2>/dev/null)")
+    for file in ${fileList[*]}; do
         echo -e "\\t\\t$count) $file"
         list[$count]=$file
         count=$((count + 1))
@@ -178,8 +178,8 @@ showFiles() {
 showDevices() {
     count=1
     l=
-    tfile="/tmp/idd.tmp"
-    fdisk -l | grep "\\/dev\\/" >$tfile
+    tmpFile="/tmp/idd.tmp"
+    fdisk -l | grep "\\/dev\\/" >$tmpFile
     IFS=$'\n'
     while read -r l; do
         if [[ ${l:1:3} == "dev" ]]; then
@@ -194,27 +194,27 @@ showDevices() {
             echo -e "$count$idd_partitions"
             count=$(count + 1)
         fi
-    done <$tfile
-    rm -rf $tfile
+    done <$tmpFile
+    rm -rf $tmpFile
 }
 
 # Get device block size
 # Определение размера блока
 getBlockSize() {
-    if [[ ! -e /sys/block/$bsdev/queue/logical_block_size ]]; then
-        bs=
+    if [[ ! -e /sys/block/$blockSizeDev/queue/logical_block_size ]]; then
+        blockSize=
         return
     fi
-    bsdev=
-    if [[ ${odev:0:4} == "/dev" ]]; then bsdev="${odev:5}"; else
-        bsdev="no"
+    blockSizeDev=
+    if [[ ${odev:0:4} == "/dev" ]]; then blockSizeDev="${odev:5}"; else
+        blockSizeDev="no"
         return
     fi
-    logicalBlockSize=$(cat /sys/block/$bsdev/queue/logical_block_size)
-    range=$(cat /sys/block/$bsdev/range)
-    bs=$($logicalBlockSize \* "$range")
-    bs=$(bs / 1024)
-    if [[ ! $bs ]]; then bs=; else bs="${bs}M"; fi
+    logicalBlockSize=$(cat /sys/block/$blockSizeDev/queue/logical_block_size)
+    range=$(cat /sys/block/$blockSizeDev/range)
+    blockSize=$($logicalBlockSize \* "$range")
+    blockSize=$(blockSize / 1024)
+    if [[ ! $blockSize ]]; then blockSize=; else blockSize="${blockSize}M"; fi
 }
 
 # Show params, confirm and run dd
@@ -227,13 +227,13 @@ showData() {
         mapfile -t m <<<"$mdev"
         mnt="$idd_mount ${m[2]}"
     fi
-    drawField
+    showHeader
     echo -e "\\e[30;47m\\e[12H\\e[0J"
     echo -e "$idd_source_choised\\t$idev"
     echo -e "$idd_dest_choised\\t$odev\\t$mnt\\e[0m\\e[30;47m"
-    echo -e "$idd_bs\\t$bs"
-    if [[ ! $bs ]]; then pbs=""; else pbs="bs=$bs "; fi
-    echo -e "$idd_command\\e[30;43m dd if=$idev of=$odev ${pbs}status=progress \\e[0m\\e[30;47m"
+    echo -e "$idd_blocksize\\t$blockSize"
+    if [[ ! $blockSize ]]; then pBlockSize=""; else pBlockSize="blockSize=$blockSize "; fi
+    echo -e "$idd_command\\e[30;43m dd if=$idev of=$odev ${pBlockSize}status=progress \\e[0m\\e[30;47m"
     echo -e "$idd_check_cmd"
     echo -e "$idd_ready_to_write $idev -> $odev ? [y/N]"
     read -r y
@@ -243,18 +243,18 @@ showData() {
             read -r -n 1 u
             if [[ $u == "y" || $u == "Y" ]]; then umount "$odev"; fi
         fi
-        echo -e "$idd_process\\e[0m\\e[30;43m dd if=$idev of=$odev ${pbs}status=progress \\e[0m\\e[30;47m\\e[0J"
-        if [[ ! $bs ]]; then
+        echo -e "$idd_process\\e[0m\\e[30;43m dd if=$idev of=$odev ${pBlockSize}status=progress \\e[0m\\e[30;47m\\e[0J"
+        if [[ ! $blockSize ]]; then
             dd if="$idev" of="$odev" status=progress
         else
-            dd if="$idev" of="$odev" bs="$bs" status=progress
+            dd if="$idev" of="$odev" blockSize="$blockSize" status=progress
         fi
-        echo -e "$idd_done\\e[0m\\e[30;43m dd if=$idev of=$odev ${pbs}status=progress \\e[0m\\e[30;47m"
+        echo -e "$idd_done\\e[0m\\e[30;43m dd if=$idev of=$odev ${pBlockSize}status=progress \\e[0m\\e[30;47m"
         echo -e "$idd_alldone"
         read -r -n 1
     fi
 }
-drawField
+showHeader
 choiseDeviceFrom
 choiseDeviceTo
 getBlockSize
