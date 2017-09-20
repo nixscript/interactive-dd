@@ -22,6 +22,56 @@ if [[ $(whoami) != "root" ]]; then
     echo -e "\\n\\t\\e[33;5mRun as root! You have no rights.\\e[0m\\n"
     exit 2
 fi
+<<<<<<< HEAD
+
+idd_header=
+idd_target=
+idd_target1=
+idd_thankfulness=
+idd_author_lic=
+idd_choise_source=
+idd_choise_f=
+idd_choise_d=
+idd_choise_source1=
+idd_choise_source2=
+idd_read_source_dest=
+idd_read_source_dest1=
+idd_type_filename=
+idd_type_filename1=
+idd_file_exists=
+idd_file_not_found=
+idd_source=
+idd_choise_destination=
+#idd_choise_destination1=
+#idd_choise_destination2=
+idd_file_exists_exit=
+idd_destination=
+idd_filelist=
+idd_type_from_kbd=
+idd_partitions=
+idd_umount=
+idd_mount=
+idd_source_choised=
+idd_dest_choised=
+idd_bs=
+idd_command=
+idd_check_cmd=
+idd_ready_to_write=
+idd_umount_dev=
+idd_process=
+idd_done=
+idd_alldone=
+
+# Load locales
+IFS=$'\n'
+while IFS= read -r line; do
+	if [[ ! $line ]]; then continue; fi
+    nm=${line%%=*}
+    if [[ ${nm:0:3} != "idd" ]]; then continue; fi
+	var=${line##*=}
+    export "$nm"="$var"
+done <  "/usr/share/idd/${LANG:0:2}.trans"
+=======
 
 # Load locales
 IFS=$'\n'
@@ -34,6 +84,7 @@ for line in $(cat "/usr/share/idd/${LANG:0:2}.trans"); do
     var="${line:$idx1}"
     export "$nm"="$var"
 done
+>>>>>>> 8001011351f9c5bf90cd4049c62c89a35f498bc2
 
 # Show header
 # Рисует шапку/заголовок
@@ -134,7 +185,11 @@ showfiles() {
     for file in ${flist[*]}; do
         echo -e "\\t\\t$count) $file"
         list[$count]=$file
+<<<<<<< HEAD
+        count=$((count + 1))
+=======
         count=$(expr $count + 1)
+>>>>>>> 8001011351f9c5bf90cd4049c62c89a35f498bc2
     done
     echo -e "\\t\\t$count$idd_type_from_kbd"
 }
@@ -147,11 +202,26 @@ showdevices() {
     tfile="/tmp/idd.tmp"
     fdisk -l | grep "\\/dev\\/" >$tfile
     IFS=$'\n'
+<<<<<<< HEAD
+    while read -r l; do
+=======
     for l in $(cat $tfile); do
+>>>>>>> 8001011351f9c5bf90cd4049c62c89a35f498bc2
         if [[ ${l:1:3} == "dev" ]]; then
             echo -e "\\t$l"
         else
             IFS=$' '
+<<<<<<< HEAD
+            mapfile -t g <<< "$l"
+            gl=${#g[1]}
+            gl=$(gl - 1)
+            list[$count]="${g[1]:0:$gl}"
+            IFS=$'\n'
+            echo -e "$count$idd_partitions"
+            count=$(count + 1)
+        fi
+    done < $tfile
+=======
             g=($l)
             gl=$(expr length "${g[1]}")
             gl=$(expr "$gl" - 1)
@@ -161,6 +231,7 @@ showdevices() {
             count=$(expr $count + 1)
         fi
     done
+>>>>>>> 8001011351f9c5bf90cd4049c62c89a35f498bc2
     rm -rf $tfile
 }
 
@@ -178,8 +249,13 @@ getbs() {
     fi
     blocksize=$(cat /sys/block/$bsdev/queue/logical_block_size)
     range=$(cat /sys/block/$bsdev/range)
+<<<<<<< HEAD
+    bs=$($blocksize \* "$range")
+    bs=$(bs / 1024)
+=======
     bs=$(expr "$blocksize" \* "$range")
     bs=$(expr "$bs" / 1024)
+>>>>>>> 8001011351f9c5bf90cd4049c62c89a35f498bc2
     if [[ ! $bs ]]; then bs=; else bs="${bs}M"; fi
 }
 
@@ -190,7 +266,11 @@ showdata() {
     if [[ ! $mdev ]]; then mnt="$idd_umount"
     else
         IFS=$' '
+<<<<<<< HEAD
+        mapfile -t m <<< "$mdev"
+=======
         m=($mdev)
+>>>>>>> 8001011351f9c5bf90cd4049c62c89a35f498bc2
         mnt="$idd_mount ${m[2]}"
     fi
     field
