@@ -10,7 +10,7 @@ addons:
     - shellcheck
 
 script:
- - shellcheck ./idd.sh
+ - shellcheck -s sh ./idd.sh
 
 notifications:
   email: false
