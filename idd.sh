@@ -71,7 +71,7 @@ done <"/usr/share/idd/${LANG:0:2}.trans"
 
 # Show header
 # Рисует шапку/заголовок
-field() {
+drawField() {
     echo -e "\\e[37;45m\\e[2J\\e[1;0H"
     echo -e "$idd_header dd (v0.4.1)\\e[0m\\e[37;45;1m"
     echo -e "$idd_target"
@@ -82,8 +82,8 @@ field() {
 
 # Choise 1, device from
 # Выбор устройства, с которого читать
-chs1() {
-    field
+choiseDeviceFrom() {
+    drawField
     echo -e "$idd_choise_source"
     read -r -n 1 c
     case "$c" in
@@ -95,12 +95,12 @@ chs1() {
         d="$idd_choise_d"
         echo -e "$idd_choise_source2"
         ;;
-    *) chs1 ;;
+    *) choiseDeviceFrom ;;
     esac
     if [[ $d == "$idd_choise_f" ]]; then
-        showfiles
+        showFiles
     else
-        showdevices
+        showDevices
     fi
     echo -e "$idd_read_source_dest $d$idd_read_source_dest1"
     read -r file
@@ -116,7 +116,7 @@ chs1() {
             exit 2
         fi
     fi
-    field
+    drawField
     echo -e "$idd_source $d ${list[$file]}\\e[30;47m\\e[13H\\e[0J"
     idev="${list[$file]}"
     echo -e "\\e[30B\\e[0m\\n"
@@ -124,8 +124,8 @@ chs1() {
 
 # Choise 2, device to
 # Выбор устройства на которое пишем
-chs2() {
-    field
+choiseDeviceTo() {
+    drawField
     echo -e "$idd_choise_destination"
     read -r -n 1 c
     case "$c" in
@@ -137,10 +137,10 @@ chs2() {
         d="$idd_choise_d"
         echo -e "$idd_choise_source2"
         ;;
-    *) chs2 ;;
+    *) choiseDeviceTo ;;
     esac
     if [[ $d == "$idd_choise_d" ]]; then
-        showdevices
+        showDevices
         echo -e "$idd_read_source_dest $d$idd_read_source_dest1"
         read -r file
     else
@@ -153,7 +153,7 @@ chs2() {
         file=0
         list=("$ff")
     fi
-    field
+    drawField
     echo -e "$idd_destination $d ${list[$file]}\\e[30;47m\\e[13H\\e[0J"
     odev="${list[$file]}"
     echo -e "\\e[30B\\e[0m\\n"
@@ -161,7 +161,7 @@ chs2() {
 
 # Show numbered list of files from current directory
 # Вывод нумерованного списка файлов в текущей директории
-showfiles() {
+showFiles() {
     echo -e "$idd_filelist"
     count=1
     flist=("$(ls ./*.i* 2>/dev/null)")
@@ -175,7 +175,7 @@ showfiles() {
 
 # Show numbered list of devices
 # Вывод нумерованного списка устройств с разделами
-showdevices() {
+showDevices() {
     count=1
     l=
     tfile="/tmp/idd.tmp"
@@ -200,7 +200,7 @@ showdevices() {
 
 # Get device block size
 # Определение размера блока
-getbs() {
+getBlockSize() {
     if [[ ! -e /sys/block/$bsdev/queue/logical_block_size ]]; then
         bs=
         return
@@ -219,7 +219,7 @@ getbs() {
 
 # Show params, confirm and run dd
 # Вывод собранных данных, подтверждение и выполнение dd
-showdata() {
+showData() {
     mdev=$(mount | grep "$odev")
     if [[ ! $mdev ]]; then mnt="$idd_umount"
     else
@@ -227,7 +227,7 @@ showdata() {
         mapfile -t m <<<"$mdev"
         mnt="$idd_mount ${m[2]}"
     fi
-    field
+    drawField
     echo -e "\\e[30;47m\\e[12H\\e[0J"
     echo -e "$idd_source_choised\\t$idev"
     echo -e "$idd_dest_choised\\t$odev\\t$mnt\\e[0m\\e[30;47m"
@@ -254,9 +254,9 @@ showdata() {
         read -r -n 1
     fi
 }
-field
-chs1
-chs2
-getbs
-showdata
+drawField
+choiseDeviceFrom
+choiseDeviceTo
+getBlockSize
+showData
 echo -e "\\e[0m\\e[0J"
