@@ -178,43 +178,46 @@ showFiles() {
 showDevices() {
     count=1
     l=
-    tmpFile="/tmp/idd.tmp"
-    fdisk -l | grep "\\/dev\\/" >$tmpFile
+    devList=$(fdisk -l | grep "\\/dev\\/")
     IFS=$'\n'
-    while read -r l; do
+    for l in $devList; do
         if [[ ${l:1:3} == "dev" ]]; then
             echo -e "\\t$l"
         else
-            IFS=$' '
-            mapfile -t g <<<"$l"
-            gl=${#g[1]}
-            gl=$(gl - 1)
-            list[$count]="${g[1]:0:$gl}"
+            IFS=" " read -r -a dev <<< "$l"
+            devLength="${#dev[1]}"
+            devLength=$((devLength - 1))
+            list[$count]="${dev[1]:0:devLength}"
             IFS=$'\n'
-            echo -e "$count$idd_partitions"
-            count=$(count + 1)
+            echo -e "$count)\\e[4m$l$idd_partitions "
+            count=$((count + 1))
         fi
-    done <$tmpFile
-    rm -rf $tmpFile
+    done
 }
 
 # Get device block size
 # Определение размера блока
 getBlockSize() {
-    if [[ ! -e /sys/block/$blockSizeDev/queue/logical_block_size ]]; then
+    if [[ ! -e "/sys/block${odev:4}/queue/logical_block_size" ]]; then
         blockSize=
         return
     fi
     blockSizeDev=
-    if [[ ${odev:0:4} == "/dev" ]]; then blockSizeDev="${odev:5}"; else
+    if [[ ${odev:0:4} == "/dev" ]]; then
+    	blockSizeDev="${odev:5}";
+    else
         blockSizeDev="no"
         return
     fi
-    logicalBlockSize=$(cat /sys/block/$blockSizeDev/queue/logical_block_size)
-    range=$(cat /sys/block/$blockSizeDev/range)
-    blockSize=$($logicalBlockSize \* "$range")
-    blockSize=$(blockSize / 1024)
-    if [[ ! $blockSize ]]; then blockSize=; else blockSize="${blockSize}M"; fi
+    logicalBlockSize=$(cat "/sys/block${odev:4}/queue/logical_block_size")
+    range=$(cat "/sys/block${odev:4}/range")
+    blockSize=$((logicalBlockSize * "$range"))
+    blockSize=$((blockSize / 1024))
+    if [[ ! $blockSize ]]; then
+    	blockSize=
+    else
+    	blockSize="${blockSize}M"
+    fi
 }
 
 # Show params, confirm and run dd
@@ -224,7 +227,7 @@ showData() {
     if [[ ! $mdev ]]; then mnt="$idd_umount"
     else
         IFS=$' '
-        mapfile -t m <<<"$mdev"
+        IFS=" " read -r -a m <<<"$mdev"
         mnt="$idd_mount ${m[2]}"
     fi
     showHeader
@@ -232,7 +235,7 @@ showData() {
     echo -e "$idd_source_choised\\t$idev"
     echo -e "$idd_dest_choised\\t$odev\\t$mnt\\e[0m\\e[30;47m"
     echo -e "$idd_blocksize\\t$blockSize"
-    if [[ ! $blockSize ]]; then pBlockSize=""; else pBlockSize="blockSize=$blockSize "; fi
+    if [[ ! $blockSize ]]; then pBlockSize=""; else pBlockSize="bs=$blockSize "; fi
     echo -e "$idd_command\\e[30;43m dd if=$idev of=$odev ${pBlockSize}status=progress \\e[0m\\e[30;47m"
     echo -e "$idd_check_cmd"
     echo -e "$idd_ready_to_write $idev -> $odev ? [y/N]"
