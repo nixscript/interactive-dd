@@ -69,17 +69,6 @@ while IFS= read -r line; do
     export "$nm"="$var"
 done <"/usr/share/idd/${LANG:0:2}.trans"
 
-# Load locales
-IFS=$'\n'
-for line in $(cat "/usr/share/idd/${LANG:0:2}.trans"); do
-    idx1=$(expr index "$line" =)
-    idx=$(expr "$idx1" - 1)
-    nm="${line:0:$idx}"
-    if [[ ${nm:0:3} != "idd" ]]; then continue; fi
-    var="${line:$idx1}"
-    export "$nm"="$var"
-done
-
 # Show header
 # Рисует шапку/заголовок
 field() {
