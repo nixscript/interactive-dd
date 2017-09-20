@@ -73,7 +73,7 @@ done <"/usr/share/idd/${LANG:0:2}.trans"
 # Рисует шапку/заголовок
 drawField() {
     echo -e "\\e[37;45m\\e[2J\\e[1;0H"
-    echo -e "$idd_header dd (v0.4.1)\\e[0m\\e[37;45;1m"
+    echo -e "$idd_header dd (v0.4.2)\\e[0m\\e[37;45;1m"
     echo -e "$idd_target"
     echo -e "$idd_target1"
     echo -e "$idd_thankfulness"
@@ -210,9 +210,9 @@ getBlockSize() {
         bsdev="no"
         return
     fi
-    blocksize=$(cat /sys/block/$bsdev/queue/logical_block_size)
+    logicalBlockSize=$(cat /sys/block/$bsdev/queue/logical_block_size)
     range=$(cat /sys/block/$bsdev/range)
-    bs=$($blocksize \* "$range")
+    bs=$($logicalBlockSize \* "$range")
     bs=$(bs / 1024)
     if [[ ! $bs ]]; then bs=; else bs="${bs}M"; fi
 }
