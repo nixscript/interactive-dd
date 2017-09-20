@@ -4,7 +4,13 @@
 [![GitHub License](https://img.shields.io/github/license/interactive-dd/interactive-dd.svg)](https://github.com/interactive-dd/interactive-dd/blob/master/LICENSE.md)
 [![GitHub Release](https://img.shields.io/github/release/interactive-dd/interactive-dd.svg)](https://github.com/interactive-dd/interactive-dd/releases)
 
+## About
+
 Bash script with interactive terminal shell for 'dd'
+
+![Screenshot](https://i.imgur.com/zAdJVLw.png)
+
+## Installation
 
 Get release zip, extract and ...
 
