@@ -10,29 +10,12 @@
 # Лицензия MIT, читайте файл LICENSE.md
 
 # Check root
-if [[ `whoami` != "root" ]]; then echo -e "Run as root! You have no rights."; exit 2; fi
-
-# Check localisation file
-if [[ ! -e "/usr/share/idd/idd.${LANG:0:2}" ]]; then
-	if [[ -e "./lang/idd.${LANG:0:2}" ]]; then
-		mkdir "/usr/share/idd"
-		cp ./lang/* /usr/share/idd/
-		cp $0 /usr/bin/idd
-		echo "idd.sh installed successful!"
-		echo "Run just 'idd' without '.sh'."
-		exit 0
-	else
-		echo "Localisation files not found. Please download release archive from"
-		echo "https://github.com/grigruss/interactive-dd/releases"
-		echo "Extract and run 'idd.sh' from extracted directory."
-		exit 2
-	fi
-fi
+if [[ `whoami` != "root" ]]; then echo -e "\n\t\e[33;5mRun as root! You have no rights.\e[0m\n"; exit 2; fi
 
 # Load locales
 IFS=$'\n'
 iddlocale=
-for line in $(cat "/usr/share/idd/idd.${LANG:0:2}"); do
+for line in $(cat "/usr/share/idd/${LANG:0:2}.trans"); do
 	idx1=`expr index "$line" =`
 	idx=`expr $idx1 - 1`
 	nm="${line:0:$idx}"
@@ -53,7 +36,7 @@ list=	# For lists of files/disks | Для списков файлов/диско
 # Рисует шапку/заголовок
 field(){
 	echo -e "\e[37;45m\e[2J\e[1;0H"
-	echo -e "$idd_header"
+	echo -e "$idd_header dd (v0.4.1)\e[0m\e[37;45;1m"
 	echo -e "$idd_target"
 	echo -e "$idd_target1"
 	echo -e "$idd_thankfulness"
@@ -76,7 +59,7 @@ chs1(){
 	else
 		showdevices
 	fi
-	echo -e "$idd_read_source_dest"
+	echo -e "$idd_read_source_dest $d$idd_read_source_dest1"
 	read file
 	sl="${#list[*]}"
 	if [[ $d == "$idd_choise_f" && $file == $sl ]]; then
@@ -109,10 +92,10 @@ chs2(){
 	esac
 	if [[ $d == $idd_choise_d ]]; then
 		showdevices
-		echo -e "$idd_read_source_dest"
+		echo -e "$idd_read_source_dest $d$idd_read_source_dest1"
 		read file
 	else
-		echo -e "$idd_type_filename"
+		echo -e "$idd_type_filename $d$idd_type_filename1"
 		read ff
 		if [[ -e "$ff" && $ff != "/dev/null" ]]; then
 			echo -e "$idd_file_exists_exit"; exit 2
@@ -130,13 +113,15 @@ chs2(){
 # Вывод нумерованного списка файлов в текущей директории
 showfiles(){
 	echo -e "$idd_filelist"
-	flist=(`ls *.i*`)
 	count=1
-	for file in ${flist[*]}; do
-		echo -e "\t\t$count) $file"
-		list[$count]=$file
-		count=`expr $count + 1`
-	done
+	if [[ -e *.i* ]]; then
+		flist=(`ls *.i*`)
+		for file in ${flist[*]}; do
+			echo -e "\t\t$count) $file"
+			list[$count]=$file
+			count=`expr $count + 1`
+		done
+	fi
 	echo -e "\t\t$count$idd_type_from_kbd"
 }
 
@@ -167,6 +152,7 @@ showdevices(){
 # Get device block size
 # Определение размера блока
 getbs(){
+	if [[ ! -e /sys/block/$bsdev/queue/logical_block_size ]]; then bs=; return; fi
 	bsdev=
 	if [[ ${odev:0:4} == "/dev" ]]; then bsdev="${odev:5}"; else bsdev="no"; return; fi
 	blocksize=`cat /sys/block/$bsdev/queue/logical_block_size`
@@ -189,7 +175,7 @@ showdata(){
 	field
 	echo -e "\e[30;47m\e[12H\e[0J"
 	echo -e "$idd_source_choised\t$idev"
-	echo -e "$idd_dest_choised$odev\t$mnt\e[0m\e[30;47m"
+	echo -e "$idd_dest_choised\t$odev\t$mnt\e[0m\e[30;47m"
 	echo -e "$idd_bs\t$bs"
 	if [[ ! $bs ]]; then pbs=""; else pbs="bs=$bs "; fi
 	echo -e "$idd_command\e[30;43m dd if=$idev of=$odev ${pbs}status=progress \e[0m\e[30;47m"
