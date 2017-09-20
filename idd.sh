@@ -199,7 +199,7 @@ showdata() {
     echo -e "$idd_dest_choised\\t$odev\\t$mnt\\e[0m\\e[30;47m"
     echo -e "$idd_bs\\t$bs"
     if [[ ! $bs ]]; then pbs=""; else pbs="bs=$bs "; fi
-    echo -e "$idd_command\\e[30;43m dd if="$idev" of="$odev" ${pbs}status=progress \\e[0m\\e[30;47m"
+    echo -e "$idd_command\\e[30;43m dd if=$idev of=$odev ${pbs}status=progress \\e[0m\\e[30;47m"
     echo -e "$idd_check_cmd"
     echo -e "$idd_ready_to_write $idev -> $odev ? [y/N]"
     read -r y
