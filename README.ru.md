@@ -1,8 +1,8 @@
 # interactive-dd
 
-[![Build Status](https://travis-ci.org/interactive-dd/interactive-dd.svg?branch=master)](https://travis-ci.org/interactive-dd/interactive-dd)
-[![GitHub License](https://img.shields.io/github/license/interactive-dd/interactive-dd.svg)](https://github.com/interactive-dd/interactive-dd/blob/master/LICENSE.md)
-[![GitHub Release](https://img.shields.io/github/release/interactive-dd/interactive-dd.svg)](https://github.com/interactive-dd/interactive-dd/releases)
+[![Build Status](https://travis-ci.org/nixscript/interactive-dd.svg?branch=master)](https://travis-ci.org/nixscript/interactive-dd)
+[![GitHub License](https://img.shields.io/github/license/nixscript/interactive-dd.svg)](https://github.com/nixscript/interactive-dd/blob/master/LICENSE.md)
+[![GitHub Release](https://img.shields.io/github/release/nixscript/interactive-dd.svg)](https://github.com/nixscript/interactive-dd/releases)
 
 Читайте на других языках: [English](README.md)
 
@@ -14,7 +14,7 @@ Bash скрипт с интерактивной оболочкой термин�
 
 ## Установка
 
-Скачайте последний [релиз](https://github.com/interactive-dd/interactive-dd/releases), распакуйте и ...
+Скачайте последний [релиз](https://github.com/nixscript/interactive-dd/releases), распакуйте и ...
 
 ```
 # Перейдите в извлеченную папку
