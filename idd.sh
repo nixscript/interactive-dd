@@ -73,7 +73,7 @@ done <"/usr/share/idd/${LANG:0:2}.trans"
 # Рисует шапку/заголовок
 showHeader() {
     echo -e "\\e[37;45m\\e[2J\\e[1;0H"
-    echo -e "$idd_header dd (v0.4.2)\\e[0m\\e[37;45;1m"
+    echo -e "$idd_header dd (v0.4.3)\\e[0m\\e[37;45;1m"
     echo -e "$idd_target"
     echo -e "$idd_target1"
     echo -e "$idd_thankfulness"
