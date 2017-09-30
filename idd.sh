@@ -243,7 +243,7 @@ showData() {
         if [[ ! $blockSize ]]; then
             dd if="$idev" of="$odev" status=progress
         else
-            dd if="$idev" of="$odev" blockSize="$blockSize" status=progress
+            dd if="$idev" of="$odev" bs="$blockSize" status=progress
         fi
         echo -e "$idd_done\\e[0m\\e[30;43m dd if=$idev of=$odev ${pBlockSize}status=progress \\e[0m\\e[30;47m"
         echo -e "$idd_alldone"
