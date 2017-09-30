@@ -6,6 +6,7 @@ idd_target1=\e[37;45;1m\tTo develop and improve the quality of Russian OSS.
 idd_thankfulness=\e[37;45;1m    \e[4mThanks for the consultations and help:\e[0m\e[37;45;1m\n\tMikhail (vk.com/mikhailnov), Sergey (vk.com/disable_enable) and Mauladen (vk.com/danil.antoshkin)
 idd_author_lic=\e[37;45;1m\n\tya@grigrus.ru vk.com/nixscript\n\t\t License MIT \n\e[0m\e[47m\e[0J
 
+idd_proc_partions_not_found=\t is not available, maybe you are running interactive-dd from chroot and forgot to mount
 idd_choise_source=\e[30;47m\e[12H\e[0J\t\e[30mSelect source type\n\t\tf) File\td) Disk\e[1A
 idd_choise_f=file
 idd_choise_d=disk
@@ -38,3 +39,4 @@ idd_umount_dev=\e[19H\e[0J\tUnmount
 idd_process=\e[19H\e[0K\t\e[30;5mIn process:
 idd_done=\e[19H\e[0K\tAll done:
 idd_alldone=\e[25H\tAll done!\n\tPress any key to exit.\e[0J
+idd_localization_file_not_found=File with language strings (localization) not found, cannot continue working!

@@ -4,8 +4,9 @@ idd_header=\e[37;45;4m\tИНТЕРАКТИВНАЯ ОБОЛОЧКА КОМАНД
 idd_target=\e[37;45;1m    \e[4mВ целях:\e[0m\e[37;45;1m\n\tРоссийского Общества Свободного Программного Обеспечения (РОСПО)
 idd_target1=\e[37;45;1m\tДля развития и улучшения качества российского СПО.
 idd_thankfulness=\e[37;45;1m    \e[4mБлагодарность за консультации и помощь:\e[0m\e[37;45;1m\n\tМихаилу (vk.com/mikhailnov), Сергею (vk.com/disable_enable) и Данилу (vk.com/danil.antoshkin)
-idd_author_lic=\e[37;45;1m\n\tya@grigrus.ru vk.com/nixscript\n\t\t License MIT \n\e[0m\e[47m\e[0J
+idd_author_lic=\e[37;45;1m\n\tya@grigrus.ru vk.com/nixscript github.com/nixscript/interactive-dd \n\t\t License MIT \n\e[0m\e[47m\e[0J
 
+idd_proc_partions_not_found=\tнедоступен, возможно, вы запускаете interactive-dd из chroot, не примонтировав
 idd_choise_source=\e[30;47m\e[12H\e[0J\t\e[30mВыберите источник\n\t\tf) Файл\td) Диск\e[1A
 idd_choise_f=файл
 idd_choise_d=диск
@@ -38,3 +39,4 @@ idd_umount_dev=\e[19H\e[0J\tОтмонтировать
 idd_process=\e[19H\e[0K\t\e[30;5mВыполнение:
 idd_done=\e[19H\e[0K\tВыполнено:
 idd_alldone=\e[25H\tРабота выполнена!\n\tдля выхода нажмите любую клавишу.\e[0J
+idd_localization_file_not_found=Файл с локализацией не найден, невозможно продолжить работу!
