@@ -99,6 +99,7 @@ fi
 idd_proc_partions_not_found=
 if [ ! -f /proc/partitions ]
 	then
+		i=
 		echoerr "/proc/partitions $idd_proc_partions_not_found /proc, /dev, /sys (for i in proc sys dev; do mount --bind /$i chroot_dir/$i)"
 fi
 
