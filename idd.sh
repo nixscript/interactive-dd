@@ -61,7 +61,7 @@ IFS=$'\n'
 # load localization from the folder where the idd script is located, for easifying of running it in development purposes
 # get the path of the script itself, where it is located (https://stackoverflow.com/questions/4774054/reliable-way-for-a-bash-script-to-get-the-full-path-to-itself))
 script_path=$(dirname "$(realpath -s "$0")")
-if cat $script_path/translations/*.trans >/dev/null
+if cat "$script_path/translations/*.trans" >/dev/null
 	then
 		locales_directory="$script_path/translations"
 	else
@@ -76,6 +76,7 @@ if [ -f "$locales_directory/${LANG:0:2}.trans" ]
 		translations_file="$locales_directory/en.trans"
 fi
 # check if the localization file is available
+idd_localization_file_not_found=
 if [ ! -f $translations_file ]
 	then
 		echoerr "$translations_file: $idd_localization_file_not_found "
@@ -95,6 +96,7 @@ if [[ $(whoami) != "root" ]]; then
 fi
 
 # check if we will be able to work, e.g. /proc/partitions may be not available in chroot, in a container etc.
+idd_proc_partions_not_found=
 if [ ! -f /proc/partitions ]
 	then
 		echoerr "/proc/partitions $idd_proc_partions_not_found /proc, /dev, /sys (for i in proc sys dev; do mount --bind /$i chroot_dir/$i)"
