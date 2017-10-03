@@ -53,21 +53,52 @@ idd_process=
 idd_done=
 idd_alldone=
 
-# Check root
-if [[ $(whoami) != "root" ]]; then
-    echo -e "\\n\\t\\e[33;5mRun as root! You have no rights.\\e[0m\\n"
-    exit 2
-fi
+# echo errors not to generic stout but to stderr для феншуя
+function echoerr() { echo -e "$@" 1>&2; }
 
 # Load locales
 IFS=$'\n'
+# load localization from the folder where the idd script is located, for easifying of running it in development purposes
+# get the path of the script itself, where it is located (https://stackoverflow.com/questions/4774054/reliable-way-for-a-bash-script-to-get-the-full-path-to-itself))
+script_path=$(dirname "$(realpath -s "$0")")
+if cat $script_path/translations/*.trans >/dev/null
+	then
+		locales_directory="$script_path/translations"
+	else
+		locales_directory="/usr/share/idd/translations"
+fi
+# check if a locale for the current system language is available
+if [ -f "$locales_directory/${LANG:0:2}.trans" ]
+	then
+		translations_file="$locales_directory/${LANG:0:2}.trans"
+	else
+		echoerr "The localization of interactive-dd for your language is not available; we will use an English locale; however, you can contribute localsation to https://github.com/nixscript/interactive-dd/"
+		translations_file="$locales_directory/en.trans"
+fi
+# check if the localization file is available
+if [ ! -f $translations_file ]
+	then
+		echoerr "$translations_file: $idd_localization_file_not_found "
+fi
 while IFS= read -r line; do
     if [[ ! $line ]]; then continue; fi
     nm=${line%%=*}
     if [[ ${nm:0:3} != "idd" ]]; then continue; fi
     var=${line##*=}
     export "$nm"="$var"
-done <"/usr/share/idd/${LANG:0:2}.trans"
+done <"$translations_file"
+
+# Check root
+if [[ $(whoami) != "root" ]]; then
+    echo -e "\\n\\t\\e[33;5mRun as root! You have no rights.\\e[0m\\n"
+    exit 2
+fi
+
+# check if we will be able to work, e.g. /proc/partitions may be not available in chroot, in a container etc.
+if [ ! -f /proc/partitions ]
+	then
+		echoerr "/proc/partitions $idd_proc_partions_not_found /proc, /dev, /sys (for i in proc sys dev; do mount --bind /$i chroot_dir/$i)"
+fi
 
 # Show header
 # Рисует шапку/заголовок
@@ -112,7 +143,7 @@ choiseDeviceFrom() {
             echo -e "$idd_file_exists"
             list[$sl]="$ff"
         else
-            echo -e "$idd_file_not_found"
+            echoerr -e "$idd_file_not_found"
             exit 2
         fi
     fi
